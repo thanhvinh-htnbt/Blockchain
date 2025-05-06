@@ -1,6 +1,6 @@
 import base64
 
-import deploy
+import deploy.deploy as deploy
 import encryptor
 import decryptor
 
