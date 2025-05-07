@@ -18,7 +18,7 @@ def deploy():
     server = w3.eth.accounts[0]
 
     # Load Smart Contract từ chuỗi
-    with open("GameToken.sol", "r") as file:
+    with open("contracts/GameToken.sol", "r") as file:
         source_code = file.read()
 
     compiled = compile_source(source_code, solc_version="0.8.0")
@@ -29,7 +29,7 @@ def deploy():
 
     # Deploy Contract
     GameToken = w3.eth.contract(abi=abi, bytecode=bytecode)
-    tx_hash = GameToken.constructor().transact({'from': server})
+    tx_hash = GameToken.constructor(server).transact({'from': server})
     tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
     contract_address = tx_receipt.contractAddress
     print("Contract deployed at:", contract_address)
@@ -43,14 +43,14 @@ def deploy():
 def create_player(w3, contract, server):
     # Tạo user mới
     user = w3.eth.accounts[1]
-    tx = contract.functions.createUser(user).transact({'from': server})
+    tx = contract.functions.createPlayer().transact({'from': user})
     w3.eth.wait_for_transaction_receipt(tx)
 
     return user
 
 def reward(w3, contract, server, user, amount):
     # Server gửi coin cho user
-    tx = contract.functions.reward(user, amount * 10**18).transact({'from': server})
+    tx = contract.functions.reward(user, amount).transact({'from': server})
     receipt = w3.eth.wait_for_transaction_receipt(tx)
     return receipt
 
@@ -61,16 +61,18 @@ def buy_item(w3, contract, user, amount, encrypted_image):
     receipt = w3.eth.wait_for_transaction_receipt(tx)
     return receipt
 
-def get_user_cipher(w3, contract, user):
+def get_user_image_count(w3, contract, user):
+    # Lấy số lượng ảnh của user
     count = contract.functions.getImageCount(user).call()
-    for i in range(count):
-        cipher_str = contract.functions.getEncryptedImage(user, i).call()
-        print(f"Item {i}: {cipher_str}")
-        return cipher_str
+    return count
 
-# # Kiểm tra số dư
-# balance_user = contract.functions.getBalance(user).call()
-# balance_server = contract.functions.getBalance(server).call()
-#
-# print(f"User balance: {balance_user / 1e18}")
-# print(f"Server balance: {balance_server / 1e18}")
+def get_image_cipher(w3, contract, user, index):
+    # Lấy cipher của ảnh
+    cipher = contract.functions.getEncryptedImage(user, index).call()
+    return cipher
+    
+def get_user_balance(w3, contract, user):
+    balance = contract.functions.getBalance(user).call()
+    return balance 
+
+
