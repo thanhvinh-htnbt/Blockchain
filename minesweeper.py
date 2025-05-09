@@ -5,7 +5,7 @@ import random
 ROWS = 9
 COLS = 12
 MINES = 20
-IMAGE_SIZE = 32  # bạn có thể điều chỉnh lại
+IMAGE_SIZE = 16
 
 class Cell:
     def __init__(self, x, y, label):
@@ -22,10 +22,10 @@ class Minesweeper:
         self.master = master
         self.board = []
 
-        # Load images
         self.blank_image = ImageTk.PhotoImage(Image.open("img_blank.png").resize((IMAGE_SIZE, IMAGE_SIZE)))
         self.flag_image = ImageTk.PhotoImage(Image.open("img_flag.png").resize((IMAGE_SIZE, IMAGE_SIZE)))
         self.mine_image = ImageTk.PhotoImage(Image.open("img_mine.png").resize((IMAGE_SIZE, IMAGE_SIZE)))
+        self.empty_image = ImageTk.PhotoImage(Image.open("img_0.png").resize((IMAGE_SIZE, IMAGE_SIZE)))
         self.number_images = {}
         for i in range(1, 8):
             img = Image.open(f"img_{i}.png").resize((IMAGE_SIZE, IMAGE_SIZE))
@@ -88,7 +88,8 @@ class Minesweeper:
                 cell.label.config(image=img)
                 cell.label.image = img
             else:
-                cell.label.config(image="", bg="lightgrey")
+                cell.label.config(image=self.empty_image)
+                cell.label.image = self.empty_image
 
             if cell.neighbor_mines == 0:
                 for dx in [-1, 0, 1]:
