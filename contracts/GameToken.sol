@@ -1,28 +1,21 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-
-contract GameToken is ERC721URIStorage {
-
+contract GameToken {
     address public server;
 
     mapping(address => uint256) public balances;
     mapping(address => string[]) public encryptedImages;
     mapping(address => bool) public isPlayer;
 
-    uint256 public tokenCounter;
-
     event PlayerCreated(address indexed player);
     event ItemPurchased(address indexed player, string encrypted_image);
 
     event Transfer(address indexed from, address indexed to, uint256 amount, string reason);
-    event NFTMinted(address indexed player, uint256 tokenId, string tokenURI);
 
-    constructor(address _server) ERC721 ("GameToken", "GT") {
+    constructor(address _server) {
         server = _server;
-        balances[server] = 1_000_000;
-        tokenCounter = 0;
+        balances[server] = 1_000_000 ether;
     }
 
 
@@ -66,18 +59,5 @@ contract GameToken is ERC721URIStorage {
 
     function getBalance(address addr) public view returns (uint256) {
         return balances[addr];
-    }
-
-    function mintNFT(string memory tokenURI) public returns (uint256) {
-        require(isPlayer[msg.sender], "Player not registered");
-
-        uint256 newItemId = tokenCounter;
-        _mint(msg.sender, newItemId);
-        _setTokenURI(newItemId, tokenURI);
-
-        tokenCounter++;
-
-        emit NFTMinted(msg.sender, newItemId, tokenURI);
-        return newItemId;
     }
 }
