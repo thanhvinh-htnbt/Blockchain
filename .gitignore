@@ -7,3 +7,5 @@ __pycache__/
 .states/
 package-lock.json
 package.json
+
+scripts/accounts.txt
