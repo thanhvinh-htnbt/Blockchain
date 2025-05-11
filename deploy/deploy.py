@@ -5,7 +5,7 @@ from solcx import compile_source, install_solc
 def deploy():
 
     # Cài đặt compiler (chạy 1 lần)
-    install_solc("0.8.0")
+    install_solc("0.8.1")
 
     # Kết nối Ganache
     w3 = Web3(Web3.HTTPProvider("http://127.0.0.1:7545"))
@@ -21,7 +21,13 @@ def deploy():
     with open("contracts/GameToken.sol", "r") as file:
         source_code = file.read()
 
-    compiled = compile_source(source_code, solc_version="0.8.0")
+    compiled = compile_source(
+    source_code,
+    solc_version="0.8.1",
+    base_path=".",
+    allow_paths=".",
+    import_remappings=["@openzeppelin=node_modules/@openzeppelin"])
+    
     contract_id, contract_interface = compiled.popitem()
 
     abi = contract_interface['abi']
@@ -29,7 +35,7 @@ def deploy():
 
     # Deploy Contract
     GameToken = w3.eth.contract(abi=abi, bytecode=bytecode)
-    tx_hash = GameToken.constructor(server).transact({'from': server})
+    tx_hash = GameToken.constructor().transact({'from': server})
     tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
     contract_address = tx_receipt.contractAddress
     print("Contract deployed at:", contract_address)
@@ -75,4 +81,4 @@ def get_user_balance(w3, contract, user):
     balance = contract.functions.getBalance(user).call()
     return balance 
 
-
+deploy()
