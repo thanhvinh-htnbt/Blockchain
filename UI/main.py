@@ -44,7 +44,7 @@ def start_game(difficulty):
 def choose_difficulty():
     diff_win = tk.Toplevel()
     diff_win.title("Select Difficulty")
-    diff_win.geometry("250x200")
+    center_window(diff_win, 250, 200)
 
     tk.Label(diff_win, text="Choose Difficulty:", font=("Arial", 12)).pack(pady=10)
 
@@ -55,6 +55,15 @@ def choose_difficulty():
 
 def open_shop():
     return
+
+def center_window(win, width, height):
+    win.update_idletasks()
+    screen_width = win.winfo_screenwidth()
+    screen_height = win.winfo_screenheight()
+    x = (screen_width - width) // 2
+    y = (screen_height - height) // 2
+    win.geometry(f"{width}x{height}+{x}+{y}")
+
 
 def open_storage():
     root.withdraw()
@@ -68,7 +77,7 @@ def open_blockchain():
 if __name__ == '__main__':
     root = tk.Tk()
     root.title("Main Menu")
-    root.geometry("600x400")
+    center_window(root, 600, 400)
 
     bg_image = Image.open("img_background.png").resize((600, 400))
     bg_photo = ImageTk.PhotoImage(bg_image)

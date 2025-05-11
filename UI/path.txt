@@ -1,1 +1,1 @@
-../collection/img_flag_2.png
+../collection/img_flag_1.png

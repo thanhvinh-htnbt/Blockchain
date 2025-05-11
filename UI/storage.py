@@ -2,6 +2,8 @@ import os
 import tkinter as tk
 from PIL import Image, ImageTk
 
+from UI import main
+
 ROWS = 3
 COLS = 5
 IMAGE_SIZE = 60
@@ -25,7 +27,8 @@ class Storage:
         self.board = []
         self.image_cache = []
 
-        # Load all available image paths from folder
+        main.center_window(self.master, COLS*(IMAGE_SIZE+4), ROWS*(IMAGE_SIZE+4))
+
         self.image_paths = sorted([
             f"../collection/img_flag_{i}.png"
             for i in range(1, ROWS * COLS + 1)
@@ -72,6 +75,7 @@ class Storage:
     def popup(self, msg):
         popup = tk.Toplevel()
         popup.title("Choose Item")
+        main.center_window(popup, 250, 120)
         tk.Label(popup, text=msg, font=("Arial", 14)).pack(pady=10)
 
         def return_to_menu():
@@ -82,5 +86,6 @@ class Storage:
         def return_to_storage():
             popup.destroy()
 
-        tk.Button(popup, text="OK", command=return_to_menu).pack(pady=5)
-        tk.Button(popup, text="Cancel", command=return_to_storage).pack(pady=5)
+
+        tk.Button(popup, text="OK", width=10, bg="#4CAF50", fg="white", font=("Arial", 10), command=return_to_menu).pack(pady=5)
+        tk.Button(popup, text="Cancel", width=10, bg="#4CAF50", fg="white", font=("Arial", 10), command=return_to_storage).pack(pady=5)

@@ -2,6 +2,7 @@ import tkinter as tk
 from PIL import Image, ImageTk
 import random
 
+from UI import main
 
 IMAGE_SIZE = 30
 
@@ -20,19 +21,26 @@ class Minesweeper:
         self.master = master
         self.menu_root = menu_root
         self.board = []
+        self.reward = 0
+
 
         if MODE == "EASY":
             ROWS = 4
             COLS = 6
             MINES = 3
+            self.reward = 100
         elif MODE == "MEDIUM":
             ROWS = 9
             COLS = 12
             MINES = 20
+            self.reward = 100
         elif MODE == "HARD":
             ROWS = 12
             COLS = 18
             MINES = 50
+            self.reward = 100
+
+        main.center_window(self.master, COLS*(IMAGE_SIZE+4), ROWS*(IMAGE_SIZE+4))
 
         with open("path.txt", "r") as file:
             path = file.read()
@@ -135,6 +143,7 @@ class Minesweeper:
                     cell.label.image = self.mine_image
 
         msg = "You Win!" if win else "Game Over!"
+
         self.popup(msg)
 
     def check_win(self):
@@ -147,6 +156,7 @@ class Minesweeper:
     def popup(self, msg):
         popup = tk.Toplevel()
         popup.title("Game Result")
+        main.center_window(popup, 250, 120)
         tk.Label(popup, text=msg, font=("Arial", 14)).pack(pady=10)
 
         def return_to_menu():
