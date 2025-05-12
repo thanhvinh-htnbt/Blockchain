@@ -85,13 +85,13 @@
 					{
 						"indexed": true,
 						"internalType": "address",
-						"name": "player",
+						"name": "to",
 						"type": "address"
 					},
 					{
 						"indexed": false,
 						"internalType": "string",
-						"name": "encrypted_image",
+						"name": "tokenURI",
 						"type": "string"
 					}
 				],
@@ -117,7 +117,7 @@
 					{
 						"indexed": true,
 						"internalType": "address",
-						"name": "player",
+						"name": "to",
 						"type": "address"
 					},
 					{
@@ -155,23 +155,17 @@
 					{
 						"indexed": true,
 						"internalType": "address",
-						"name": "from",
-						"type": "address"
-					},
-					{
-						"indexed": true,
-						"internalType": "address",
 						"name": "to",
 						"type": "address"
 					},
 					{
-						"indexed": true,
+						"indexed": false,
 						"internalType": "uint256",
-						"name": "tokenId",
+						"name": "amount",
 						"type": "uint256"
 					}
 				],
-				"name": "Transfer",
+				"name": "RewardSent",
 				"type": "event"
 			},
 			{
@@ -190,16 +184,10 @@
 						"type": "address"
 					},
 					{
-						"indexed": false,
+						"indexed": true,
 						"internalType": "uint256",
-						"name": "amount",
+						"name": "tokenId",
 						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "string",
-						"name": "reason",
-						"type": "string"
 					}
 				],
 				"name": "Transfer",
@@ -240,36 +228,6 @@
 					}
 				],
 				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "user",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "amount",
-						"type": "uint256"
-					},
-					{
-						"internalType": "string",
-						"name": "encrypted_image",
-						"type": "string"
-					}
-				],
-				"name": "buyItem",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "createPlayer",
-				"outputs": [],
-				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -456,7 +414,7 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "user",
+						"name": "player",
 						"type": "address"
 					},
 					{
@@ -519,19 +477,6 @@
 				"name": "safeTransferFrom",
 				"outputs": [],
 				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "server",
-				"outputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -638,6 +583,10 @@
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
+			},
+			{
+				"stateMutability": "payable",
+				"type": "receive"
 			}
 		],
 		"devdoc": {
@@ -845,11 +794,11 @@
 			]
 		},
 		"contracts/GameToken.sol": {
-			"keccak256": "0x5dcb701f7253255880b1af448ae2909c4c1324dafc85f6553ce77b5eeb638d29",
+			"keccak256": "0x4168686c43afb8fcaff7489ca9743c2bd2fe90bf4fd901f42513d072fac4fd61",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://8973ceb3aefc8fc810f2a1a7451f6d2b62dbed569526444631862faba4faae33",
-				"dweb:/ipfs/QmRuudPBP4ALsi8MY8TN2cvFJGuPtVUMMcH7WeEZwC6To3"
+				"bzz-raw://b2a8c129876d556a4df077dda88f8795d0fcdb3f5fc4b019257a096df5741406",
+				"dweb:/ipfs/QmZTnQBJqgAy78N3ktui4reE6eNreANRfAryapCJHjN2LN"
 			]
 		}
 	},
