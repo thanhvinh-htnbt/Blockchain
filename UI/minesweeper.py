@@ -2,10 +2,9 @@ import tkinter as tk
 from PIL import Image, ImageTk
 import random
 
-ROWS = 9
-COLS = 12
-MINES = 20
-IMAGE_SIZE = 16
+from UI import main
+
+IMAGE_SIZE = 30
 
 class Cell:
     def __init__(self, x, y, label):
@@ -18,39 +17,63 @@ class Cell:
         self.neighbor_mines = 0
 
 class Minesweeper:
-    def __init__(self, master):
+    def __init__(self, master, MODE, menu_root):
         self.master = master
+        self.menu_root = menu_root
         self.board = []
+        self.reward = 0
 
-        self.blank_image = ImageTk.PhotoImage(Image.open("img_blank.png").resize((IMAGE_SIZE, IMAGE_SIZE)))
-        self.flag_image = ImageTk.PhotoImage(Image.open("img_flag.png").resize((IMAGE_SIZE, IMAGE_SIZE)))
-        self.mine_image = ImageTk.PhotoImage(Image.open("img_mine.png").resize((IMAGE_SIZE, IMAGE_SIZE)))
-        self.empty_image = ImageTk.PhotoImage(Image.open("img_0.png").resize((IMAGE_SIZE, IMAGE_SIZE)))
+
+        if MODE == "EASY":
+            ROWS = 4
+            COLS = 6
+            MINES = 3
+            self.reward = 100
+        elif MODE == "MEDIUM":
+            ROWS = 9
+            COLS = 12
+            MINES = 20
+            self.reward = 100
+        elif MODE == "HARD":
+            ROWS = 12
+            COLS = 18
+            MINES = 50
+            self.reward = 100
+
+        main.center_window(self.master, COLS*(IMAGE_SIZE+4), ROWS*(IMAGE_SIZE+4))
+
+        with open("path.txt", "r") as file:
+            path = file.read()
+
+        self.blank_image = ImageTk.PhotoImage(Image.open("../block/img_blank.png").resize((IMAGE_SIZE, IMAGE_SIZE)))
+        self.flag_image = ImageTk.PhotoImage(Image.open(path).resize((IMAGE_SIZE, IMAGE_SIZE)))
+        self.mine_image = ImageTk.PhotoImage(Image.open("../block/img_mine.png").resize((IMAGE_SIZE, IMAGE_SIZE)))
+        self.empty_image = ImageTk.PhotoImage(Image.open("../block/img_0.png").resize((IMAGE_SIZE, IMAGE_SIZE)))
         self.number_images = {}
         for i in range(1, 8):
-            img = Image.open(f"img_{i}.png").resize((IMAGE_SIZE, IMAGE_SIZE))
+            img = Image.open(f"../block/img_{i}.png").resize((IMAGE_SIZE, IMAGE_SIZE))
             self.number_images[i] = ImageTk.PhotoImage(img)
 
-        self.setup()
+        self.setup(ROWS, COLS, MINES)
 
-    def setup(self):
+    def setup(self, ROWS, COLS, MINES):
         for x in range(ROWS):
             row = []
             for y in range(COLS):
                 label = tk.Label(self.master, image=self.blank_image, width=IMAGE_SIZE, height=IMAGE_SIZE)
                 label.image = self.blank_image
-                label.grid(row=x, column=y)
+                label.grid(row=x, column=y, padx=0, pady=0)
 
                 cell = Cell(x, y, label)
-                label.bind("<Button-1>", lambda e, c=cell: self.reveal(c))
+                label.bind("<Button-1>", lambda e, c=cell: self.reveal(c, ROWS, COLS))
                 label.bind("<Button-3>", lambda e, c=cell: self.flag(c))
                 row.append(cell)
             self.board.append(row)
 
-        self.place_mines()
-        self.calculate_neighbors()
+        self.place_mines(ROWS, COLS, MINES)
+        self.calculate_neighbors(ROWS, COLS)
 
-    def place_mines(self):
+    def place_mines(self, ROWS, COLS, MINES):
         count = 0
         while count < MINES:
             x = random.randint(0, ROWS - 1)
@@ -60,7 +83,7 @@ class Minesweeper:
                 cell.is_mine = True
                 count += 1
 
-    def calculate_neighbors(self):
+    def calculate_neighbors(self, ROWS, COLS):
         for x in range(ROWS):
             for y in range(COLS):
                 cell = self.board[x][y]
@@ -73,7 +96,7 @@ class Minesweeper:
                             if self.board[nx][ny].is_mine:
                                 cell.neighbor_mines += 1
 
-    def reveal(self, cell):
+    def reveal(self, cell, ROWS, COLS):
         if cell.is_flagged or cell.is_revealed:
             return
         cell.is_revealed = True
@@ -98,7 +121,7 @@ class Minesweeper:
                         if 0 <= nx < ROWS and 0 <= ny < COLS:
                             neighbor = self.board[nx][ny]
                             if not neighbor.is_revealed:
-                                self.reveal(neighbor)
+                                self.reveal(neighbor, ROWS, COLS)
         self.check_win()
 
     def flag(self, cell):
@@ -120,6 +143,7 @@ class Minesweeper:
                     cell.label.image = self.mine_image
 
         msg = "You Win!" if win else "Game Over!"
+
         self.popup(msg)
 
     def check_win(self):
@@ -132,11 +156,15 @@ class Minesweeper:
     def popup(self, msg):
         popup = tk.Toplevel()
         popup.title("Game Result")
+        main.center_window(popup, 250, 120)
         tk.Label(popup, text=msg, font=("Arial", 14)).pack(pady=10)
-        tk.Button(popup, text="Exit", command=self.master.quit).pack(pady=5)
 
-if __name__ == "__main__":
-    root = tk.Tk()
-    root.title("Minesweeper 9x12")
-    game = Minesweeper(root)
-    root.mainloop()
+        def return_to_menu():
+            popup.destroy()
+            self.master.destroy()
+            self.menu_root.deiconify()
+
+        tk.Button(popup, text="Exit", command=return_to_menu).pack(pady=5)
+
+
+
