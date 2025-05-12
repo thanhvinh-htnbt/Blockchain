@@ -1,0 +1,26 @@
+[
+    {
+        "address": "0x1F6d1F273c7c597D0658EBF4382F6335472027a1",
+        "private_key": "add server private key"
+    },
+    {
+        "address": "0x9878942b577024E97F714fFef6818d556Ae68e7E",
+        "private_key": "cc891262447a6aec939db72beefe444969015c3505ceb31a72f5fa536078f6b8"
+    },
+    {
+        "address": "0xC8b5Bf4C6db3F0F75EDe0FcB24A2bCeC36b579BA",
+        "private_key": "a97f4c4f4b2c9221f62b52b3d843aeb5266c70a91fc3fb8f0b44805a6e8582e8"
+    },
+    {
+        "address": "0xa2b4598F6fF929F89565F91E1eE06e75212D204c",
+        "private_key": "108b410bc75ca2e1a5bd304a17db4e68a101343e4df48f47138b6f973bb3168b"
+    },
+    {
+        "address": "0xA2ba618C37cF0FC3ed3B016f5385252967c15eb7",
+        "private_key": "74c023f750014e7bb91214b36bbc27bf04d08f2119dc16137f955292a73e0f12"
+    },
+    {
+        "address": "0x721feBa1645449833031b7e1eB792c25C417d042",
+        "private_key": "da6694fdd54e262c456741d70f6efa2cc94f16a2131641daecc2f4e10eabbb9a"
+    }
+]
