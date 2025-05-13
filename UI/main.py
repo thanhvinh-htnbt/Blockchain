@@ -2,6 +2,7 @@ import tkinter as tk
 from PIL import Image, ImageTk, ImageDraw, ImageFont
 import minesweeper
 import storage
+import NFTsStore
 
 
 def create_canvas_button(image_path, text, x, y, command):
@@ -54,7 +55,45 @@ def choose_difficulty():
                   ).pack(pady=5)
 
 def open_shop():
-    return
+    root.withdraw()  # Ẩn cửa sổ chính
+    
+    # Thêm thông tin người dùng (cần điều chỉnh theo cách bạn lấy thông tin)
+    user_address = "0xYourUserAddress"  
+    private_key = "YourPrivateKey"  
+    
+    # Tạo cửa sổ mới
+    shop_window = tk.Toplevel()
+    shop_window.title("NFT Marketplace")
+    
+    # Thiết lập canvas và scrollbar
+    canvas = tk.Canvas(shop_window)
+    scrollbar = ttk.Scrollbar(shop_window, orient="vertical", command=canvas.yview)
+    scroll_frame = ttk.Frame(canvas)
+    
+    # Cấu hình scroll
+    scroll_frame.bind(
+        "<Configure>",
+        lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
+    canvas.create_window((0, 0), window=scroll_frame, anchor="nw")
+    canvas.configure(yscrollcommand=scrollbar.set)
+    
+    # Bố cục giao diện
+    canvas.pack(side="left", fill="both", expand=True)
+    scrollbar.pack(side="right", fill="y")
+    
+    # Nút quay lại
+    back_button = ttk.Button(
+        scroll_frame,
+        text="Back to Main Menu",
+        command=lambda: [shop_window.destroy(), root.deiconify()]
+    )
+    back_button.pack(pady=10)
+    
+    # Tải NFTs - giả định bạn đã có hàm này
+    load_nfts(scroll_frame, user_address, private_key)
+    
+    # Xử lý đóng cửa sổ
+    shop_window.protocol("WM_DELETE_WINDOW", lambda: [shop_window.destroy(), root.deiconify()])
 
 def center_window(win, width, height):
     win.update_idletasks()

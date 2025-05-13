@@ -1,14 +1,18 @@
 import tkinter as tk
+import os
+import io
+import json
+import base64
+import shutil
 from tkinter import messagebox, ttk
 from PIL import Image, ImageTk
 from scripts.mint_NFT import mint_nft
-import os
-import json
-import base64
+from PIL import Image
+
 
 NFT_FOLDER = "NFTsData"
-PRICES_FILE = "prices.json"
-bought_nfts = set()
+PRICES_FILE = "NFTsData/prices.json"
+COLLECTION = "collection"
 
 # Load giá từ prices.json
 def load_prices():
@@ -17,6 +21,12 @@ def load_prices():
             return json.load(f)
     return {}
 
+def data_uri_to_image(data_uri):
+    header, encoded = data_uri.split(",", 1)
+    image_data = base64.b64decode(encoded)
+    image = Image.open(io.BytesIO(image_data))
+    return image
+
 # Hàm chuyển ảnh thành tokenURI base64
 def image_to_data_uri(image_path):
     ext = os.path.splitext(image_path)[1].lower()
@@ -24,28 +34,37 @@ def image_to_data_uri(image_path):
     if ext == ".png":
         mime_type = "image/png"
 
-    with open(image_path, "rb") as img_file:
-        encoded = base64.b64encode(img_file.read()).decode("utf-8")
+    with Image.open(image_path) as img:
+        img = img.resize((50, 50))  # Resize về 50x50
+
+        # Lưu ảnh vào bộ nhớ thay vì file
+        buffer = io.BytesIO()
+        format = "PNG" if mime_type == "image/png" else "JPEG"
+        img.save(buffer, format=format)
+        encoded = base64.b64encode(buffer.getvalue()).decode("utf-8")
     return f"data:{mime_type};base64,{encoded}"
 
 # Hàm xử lý khi nhấn nút Mua
-def buy_nft(image_path, button, recipient_address, private_key):
-    if image_path in bought_nfts:
+def buy_nft(image_path, button, recipient_address, private_key, price_eth):
+
+    
+    if os.path.exists(os.path.join(COLLECTION, image_path)):
         messagebox.showinfo("Đã mua", "Bạn đã mua NFT này rồi.")
         return
 
     try:
         token_uri = image_to_data_uri(image_path)
-        mint_nft(token_uri, recipient_address, private_key)  # Gửi base64 vào contract
+        token_id = mint_nft(token_uri, recipient_address, private_key, price_eth)
 
-        bought_nfts.add(image_path)
+        # Lưu ảnh vào thư mục collection
+        save_image_to_collection(image_path)
         button.config(state="disabled", text="Đã mua")
         messagebox.showinfo("Thành công", "Mua NFT thành công!")
     except Exception as e:
         messagebox.showerror("Lỗi", f"Mua NFT thất bại:\n{e}")
 
 # Load ảnh và tạo giao diện
-def load_nfts(container, recipient_address, private_key):
+def load_nfts(container, user_address, private_key):
     prices = load_prices()
     files = os.listdir(NFT_FOLDER)
     images = [f for f in files if f.lower().endswith((".png", ".jpg", ".jpeg"))]
@@ -66,11 +85,13 @@ def load_nfts(container, recipient_address, private_key):
         img_label.pack()
 
         price_val = prices.get(img_file, "1 ETH")
+
         price_label = ttk.Label(frame, text=f"Giá: {price_val}", font=("Arial", 12))
         price_label.pack()
 
         buy_button = ttk.Button(frame, text="Mua")
-        buy_button.config(command=lambda path=img_path, btn=buy_button: buy_nft(path, btn, recipient_address, private_key))
+        buy_button.config(command=lambda path=img_path, btn=buy_button: 
+                            buy_nft(path, btn, user_address, private_key, price_val))
         buy_button.pack()
 
         col += 1
@@ -78,11 +99,24 @@ def load_nfts(container, recipient_address, private_key):
             row += 1
             col = 0
 
-# Giao diện chính
-def main():
-    recipient_address = "0xc62Ee024F588dDB4772AfeBb09F3fd23D945870E"  # <- thay địa chỉ ví
-    private_key = "0xc1fd9a7f1d12c766647d3f4a4c220570b4ae8ab30a47f6f13f27f45bd8f5b007"  # <- thay khóa riêng
+    
+def save_image_to_collection(image_path):
+    if not os.path.exists(COLLECTION):
+        os.makedirs(COLLECTION)
 
+    file_name = os.path.basename(image_path)
+    save_path = os.path.join(COLLECTION, file_name)
+
+    try:
+        shutil.copy(image_path, save_path)
+        print(f"Đã lưu NFT vào: {save_path}")
+    except Exception as e:
+        print(f"Lỗi khi sao chép ảnh NFT: {e}")
+
+
+
+# Giao diện chính
+def show_nft_store(user_address, private_key):
     root = tk.Tk()
     root.title("NFT Marketplace")
 
@@ -97,8 +131,12 @@ def main():
     canvas.pack(side="left", fill="both", expand=True)
     scrollbar.pack(side="right", fill="y")
 
-    load_nfts(scroll_frame, recipient_address, private_key)
+    load_nfts(scroll_frame, user_address, private_key)
     root.mainloop()
 
+
+
+
+
 if __name__ == "__main__":
-    main()
+    show_nft_store("0x254228Db98670755cba6a17DAee3AB732ab68130", "0x2aef5894f2988c7b498327b8d0d3fa9ced010b3ced9576ac991b45e87747f737")
