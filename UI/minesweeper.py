@@ -30,7 +30,7 @@ class Minesweeper:
             ROWS = 4
             COLS = 6
             MINES = 3
-            self.reward = 100
+            self.reward = 50
         elif MODE == "MEDIUM":
             ROWS = 9
             COLS = 12
@@ -40,7 +40,7 @@ class Minesweeper:
             ROWS = 12
             COLS = 18
             MINES = 50
-            self.reward = 100
+            self.reward = 200
 
         main.center_window(self.master, COLS*(IMAGE_SIZE+4), ROWS*(IMAGE_SIZE+4))
 
@@ -147,7 +147,7 @@ class Minesweeper:
         msg = ""
 
         if win:
-            msg = "You Win!\nYou have received 100 coins"
+            msg = f"You Win!\nYou have received f{self.reward} coins"
             self.send_reward()
         else:
             msg = "Game Over!"

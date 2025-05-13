@@ -7,6 +7,7 @@
     <list default="true" id="bd788161-7d19-403b-9ab5-36bf930c1195" name="Changes" comment="Init">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UI/minesweeper.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/minesweeper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI/path.txt" beforeDir="false" afterPath="$PROJECT_DIR$/UI/path.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
