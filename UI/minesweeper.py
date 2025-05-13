@@ -1,7 +1,9 @@
 import tkinter as tk
 from PIL import Image, ImageTk
 import random
-
+from web3 import Web3
+import json
+from config.config import GANACHE_URL, CONTRACT_ADDRESS
 from UI import main
 
 IMAGE_SIZE = 30
@@ -142,9 +144,44 @@ class Minesweeper:
                     cell.label.config(image=self.mine_image, text="", compound='center')
                     cell.label.image = self.mine_image
 
-        msg = "You Win!" if win else "Game Over!"
+        msg = ""
+
+        if win:
+            msg = "You Win!\nYou have received 100 coins"
+            self.send_reward(100)
+        else:
+            msg = "Game Over!"
 
         self.popup(msg)
+
+    def send_reward(self, amount):
+        w3 = Web3(Web3.HTTPProvider(GANACHE_URL))
+        print("Kết nối:", w3.is_connected())
+
+        # Đọc thông tin tài khoản từ file JSON
+        with open("../scripts/accounts.json", "r") as f:
+            accounts = json.load(f)
+
+        sender = accounts[0]
+        receiver = accounts[1]
+
+        tx = {
+            'nonce': w3.eth.get_transaction_count(receiver["address"]),
+            'to': receiver["address"],
+            'value': w3.to_wei(amount, 'ether'),
+            'gas': 21000,
+            'gasPrice': w3.to_wei('50', 'gwei')
+        }
+
+        # Ký và gửi transaction
+        signed_tx = w3.eth.account.sign_transaction(tx, sender["private_key"])
+        tx_hash = w3.eth.send_raw_transaction(signed_tx.raw_transaction)
+
+        balance_sender = w3.from_wei(w3.eth.get_balance(sender["address"]), 'ether')
+        balance_receiver = w3.from_wei(w3.eth.get_balance(receiver["address"]), 'ether')
+        print(f"Số dư người gửi: {balance_sender} ETH")
+        print(f"Số dư người nhận: {balance_receiver} ETH")
+
 
     def check_win(self):
         for row in self.board:

@@ -80,8 +80,8 @@ def load_nfts(container, recipient_address, private_key):
 
 # Giao diện chính
 def main():
-    recipient_address = "0x254228Db98670755cba6a17DAee3AB732ab68130"  # <- thay địa chỉ ví
-    private_key = "0x2aef5894f2988c7b498327b8d0d3fa9ced010b3ced9576ac991b45e87747f737"  # <- thay khóa riêng
+    recipient_address = "0xc62Ee024F588dDB4772AfeBb09F3fd23D945870E"  # <- thay địa chỉ ví
+    private_key = "0xc1fd9a7f1d12c766647d3f4a4c220570b4ae8ab30a47f6f13f27f45bd8f5b007"  # <- thay khóa riêng
 
     root = tk.Tk()
     root.title("NFT Marketplace")
