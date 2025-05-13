@@ -148,13 +148,13 @@ class Minesweeper:
 
         if win:
             msg = "You Win!\nYou have received 100 coins"
-            self.send_reward(100)
+            self.send_reward()
         else:
             msg = "Game Over!"
 
         self.popup(msg)
 
-    def send_reward(self, amount):
+    def send_reward(self):
         w3 = Web3(Web3.HTTPProvider(GANACHE_URL))
         print("Kết nối:", w3.is_connected())
 
@@ -166,9 +166,9 @@ class Minesweeper:
         receiver = accounts[1]
 
         tx = {
-            'nonce': w3.eth.get_transaction_count(receiver["address"]),
+            'nonce': w3.eth.get_transaction_count(sender["address"]),
             'to': receiver["address"],
-            'value': w3.to_wei(amount, 'ether'),
+            'value': w3.to_wei(self.reward, 'ether'),
             'gas': 21000,
             'gasPrice': w3.to_wei('50', 'gwei')
         }
