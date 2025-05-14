@@ -2,11 +2,11 @@ import tkinter as tk
 from PIL import Image, ImageTk, ImageDraw, ImageFont
 import minesweeper
 import storage
-import NFTsStore
+from UI import NFTsStore
 import blockchain
 from web3 import Web3
 import json
-from config.config import GANACHE_URL, CONTRACT_ADDRESS
+from config.config import GANACHE_URL
 
 
 def create_canvas_button(image_path, text, x, y, command):
@@ -84,7 +84,7 @@ def open_storage():
 def open_blockchain():
     root.withdraw()
     blockchain_window = tk.Toplevel()
-    blockchain_window.title(f"Storage")
+    blockchain_window.title(f"BLock Viewer")
     blockchain.BlockViewer(blockchain_window, root)
 
 if __name__ == '__main__':

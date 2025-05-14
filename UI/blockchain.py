@@ -69,17 +69,28 @@ class BlockViewer:
         sublabel.bind("<Button-1>", lambda e, b=block: self.show_block_detail(b))
 
     def show_block_detail(self, block):
-        detail = f"""
-        Block Number: {block.number}
-        Hash: {block.hash.hex()}
-        Parent Hash: {block.parentHash.hex()}
-        Timestamp: {datetime.fromtimestamp(block.timestamp)}
-        Miner: {block.miner}
-        Difficulty: {block.difficulty}
-        Gas Used: {block.gasUsed}
-        Gas Limit: {block.gasLimit}
-        Transactions: {len(block.transactions)}
-        """
-        messagebox.showinfo(f"Block #{block.number} Details", detail.strip())
+        detail_window = tk.Toplevel()
+        detail_window.title(f"Block #{block.number} Details")
+        detail_window.geometry("700x200")
+
+        text_widget = tk.Text(detail_window, wrap="word", font=("Courier", 10))
+        text_widget.pack(expand=True, fill="both")
+
+        detail_lines = [
+            f"{'Block Number:':20} {block.number}",
+            f"{'Hash:':20} {block.hash.hex()}",
+            f"{'Parent Hash:':20} {block.parentHash.hex()}",
+            f"{'Timestamp:':20} {datetime.fromtimestamp(block.timestamp)}",
+            f"{'Miner:':20} {block.miner}",
+            f"{'Difficulty:':20} {block.difficulty}",
+            f"{'Gas Used:':20} {block.gasUsed}",
+            f"{'Gas Limit:':20} {block.gasLimit}",
+            f"{'Transactions:':20} {len(block.transactions)}",
+        ]
+
+        for line in detail_lines:
+            text_widget.insert(tk.END, line + "\n")
+
+        text_widget.config(state="disabled")
 
 
