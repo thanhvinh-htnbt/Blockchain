@@ -59,8 +59,10 @@ def choose_difficulty():
                   ).pack(pady=5)
 
 def open_shop(user_address, private_key):
-    root.withdraw()  # Ẩn cửa sổ chính
-    NFTsStore.show_nft_store(user_address, private_key)
+    root.withdraw()
+    shop_window = tk.Toplevel()
+    shop_window.title(f"Storage")
+    NFTsStore.NFTsStore(user_address, private_key, shop_window, root)
 
     
 
@@ -76,7 +78,7 @@ def center_window(win, width, height):
 def open_storage():
     root.withdraw()
     storage_window = tk.Toplevel()
-    storage_window.title(f"Storage")
+    storage_window.title(f"NFT Marketplace")
     storage.Storage(storage_window, root)
 
 def open_blockchain():

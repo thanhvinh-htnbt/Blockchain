@@ -5,20 +5,6 @@ from datetime import datetime
 from web3 import Web3
 from config.config import GANACHE_URL, CONTRACT_ADDRESS
 
-
-
-
-def get_block_info(start=0, end=None):
-    w3 = Web3(Web3.HTTPProvider(GANACHE_URL))
-    if end is None:
-        end = w3.eth.block_number
-    blocks = []
-    for i in range(start, end + 1):
-        block = w3.eth.get_block(i, full_transactions=True)
-        blocks.append(block)
-    return blocks
-
-
 class BlockViewer:
     def __init__(self, master, menu_root):
         self.master = master
@@ -50,8 +36,18 @@ class BlockViewer:
         self.master.destroy()
         self.menu_root.deiconify()
 
+    def get_block_info(self, start=0, end=None):
+        w3 = Web3(Web3.HTTPProvider(GANACHE_URL))
+        if end is None:
+            end = w3.eth.block_number
+        blocks = []
+        for i in range(start, end + 1):
+            block = w3.eth.get_block(i, full_transactions=True)
+            blocks.append(block)
+        return blocks
+
     def load_blocks(self):
-        blocks = get_block_info()
+        blocks = self.get_block_info()
 
         for block in blocks:
             self.add_block_card(block)

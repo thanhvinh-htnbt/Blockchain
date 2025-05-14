@@ -7,7 +7,7 @@ def mint_nft(image_data, user_address, private_key, price_eth):
     w3 = Web3(Web3.HTTPProvider(GANACHE_URL))
     print("Connected:", w3.is_connected())
 
-    with open("contracts/GameToken_contract.json", "r") as f:
+    with open("../contracts/GameToken_contract.json", "r") as f:
         contract_data = json.load(f)
 
     nft_contract = w3.eth.contract(address=CONTRACT_ADDRESS, abi=contract_data["abi"])
