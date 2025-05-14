@@ -41,7 +41,7 @@ class Minesweeper:
             MINES = 50
             self.reward = 200
 
-        main.center_window(self.master, COLS*(IMAGE_SIZE+4), ROWS*(IMAGE_SIZE+4))
+        main.center_window(self.master, COLS * (IMAGE_SIZE + 4), ROWS * (IMAGE_SIZE + 4))
 
         with open("path.txt", "r") as file:
             path = file.read()

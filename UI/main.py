@@ -1,12 +1,12 @@
 import tkinter as tk
 from tkinter import messagebox
 from PIL import Image, ImageTk, ImageDraw, ImageFont
-import NFTsStore
 from web3 import Web3
 import json
 import minesweeper
 import storage
 import blockchain
+import NFTsStore
 
 from deploy import deploy
 

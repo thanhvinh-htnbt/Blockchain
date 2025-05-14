@@ -6,8 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="bd788161-7d19-403b-9ab5-36bf930c1195" name="Changes" comment="Init">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI/blockchain.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/blockchain.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI/NFTsStore.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/NFTsStore.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UI/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI/minesweeper.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/minesweeper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI/storage.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/storage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/decryptor.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/encryptor.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,22 +52,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.NFTsStore.executor": "Run",
-    "Python.createNewUser.executor": "Run",
-    "Python.deploy.executor": "Run",
-    "Python.image.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.minesweeper.executor": "Run",
-    "Python.test.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "phong",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/Vinh/Documents/GitHub/Blockchain/collection"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.NFTsStore.executor&quot;: &quot;Run&quot;,
+    &quot;Python.createNewUser.executor&quot;: &quot;Run&quot;,
+    &quot;Python.deploy.executor&quot;: &quot;Run&quot;,
+    &quot;Python.image.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.minesweeper.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;phong&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Vinh/Documents/GitHub/Blockchain/collection&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Vinh\Documents\GitHub\Blockchain\collection" />
@@ -70,6 +75,7 @@
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Vinh\Documents\GitHub\Blockchain\UI" />
+      <recent name="C:\Users\Vinh\Documents\GitHub\Blockchain" />
       <recent name="C:\Users\Vinh\Documents\GitHub\Blockchain\NFTsData" />
       <recent name="C:\Users\Vinh\Documents\GitHub\Blockchain\collection" />
       <recent name="C:\Users\Vinh\Documents\GitHub\Blockchain\block" />
@@ -89,7 +95,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/UI/main.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\Vinh\Documents\GitHub\Blockchain\UI\main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />

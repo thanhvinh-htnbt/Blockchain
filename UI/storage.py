@@ -27,7 +27,7 @@ class Storage:
         self.board = []
         self.image_cache = []
 
-        main.center_window(self.master, COLS*(IMAGE_SIZE+4), ROWS*(IMAGE_SIZE+4))
+        main.center_window(self.master, COLS * (IMAGE_SIZE + 4), ROWS * (IMAGE_SIZE + 4))
 
         self.image_paths = sorted([
             f"../collection/img_flag_{i}.png"

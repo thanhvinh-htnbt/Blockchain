@@ -19,7 +19,7 @@ class NFTsStore:
         self.master = master
         self.menu_root = menu_root
 
-        with open("config/config.json", "r") as f:
+        with open("../config/config.json", "r") as f:
             config = json.load(f)
 
         ganache_url = config["GANACHE_URL"]
