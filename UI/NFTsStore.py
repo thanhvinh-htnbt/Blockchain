@@ -7,6 +7,7 @@ from tkinter import messagebox, ttk
 from PIL import ImageTk
 from scripts import mint_NFT
 from PIL import Image
+from web3 import Web3
 
 
 NFT_FOLDER = "../NFTsData"
@@ -18,17 +19,37 @@ class NFTsStore:
         self.master = master
         self.menu_root = menu_root
 
-        canvas = tk.Canvas(self.master)
-        scrollbar = ttk.Scrollbar(self.master, orient="vertical", command=canvas.yview)
+        with open("config/config.json", "r") as f:
+            config = json.load(f)
+
+        ganache_url = config["GANACHE_URL"]
+        self.w3 = Web3(Web3.HTTPProvider(ganache_url))
+        self.user_address = user_address
+
+        main_frame = ttk.Frame(master)
+        main_frame.pack(fill="both", expand=True)
+
+        # Label hiển thị số dư
+        balance = self.get_eth_balance()
+        self.balance_label = ttk.Label(main_frame, text=f"Số dư: {balance} ETH", font=("Arial", 14, "bold"))
+        self.balance_label.pack(anchor="nw", padx=10, pady=5)
+
+        canvas = tk.Canvas(main_frame, width=1200, height=700)  # ➕ rộng hơn
+        x_scrollbar = ttk.Scrollbar(main_frame, orient="horizontal", command=canvas.xview)
+        y_scrollbar = ttk.Scrollbar(main_frame, orient="vertical", command=canvas.yview)
+
         scroll_frame = ttk.Frame(canvas)
 
         scroll_frame.bind("<Configure>", lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
         canvas.create_window((0, 0), window=scroll_frame, anchor="nw")
-        canvas.configure(yscrollcommand=scrollbar.set)
+
+        canvas.configure(yscrollcommand=y_scrollbar.set, xscrollcommand=x_scrollbar.set)
 
         canvas.pack(side="left", fill="both", expand=True)
-        scrollbar.pack(side="right", fill="y")
+        y_scrollbar.pack(side="right", fill="y")
+        x_scrollbar.pack(side="bottom", fill="x")
 
+        # Load NFTs
         self.load_nfts(scroll_frame, user_address, private_key)
 
         self.master.protocol("WM_DELETE_WINDOW", self.on_close)
@@ -95,6 +116,15 @@ class NFTsStore:
             messagebox.showinfo("Thành công", "Mua NFT thành công!")
         except Exception as e:
             messagebox.showerror("Lỗi", f"Mua NFT thất bại:\n{e}")
+
+    def get_eth_balance(self):
+        try:
+            balance_wei = self.w3.eth.get_balance(self.user_address)
+            balance_eth = self.w3.from_wei(balance_wei, 'ether')
+            return round(balance_eth, 4)
+        except Exception as e:
+            print(f"Lỗi khi lấy số dư: {e}")
+            return 0
 
     # Load ảnh và tạo giao diện
     def load_nfts(self, container, user_address, private_key):
