@@ -58,6 +58,12 @@ class Minesweeper:
 
         self.setup(ROWS, COLS, MINES)
 
+        self.master.protocol("WM_DELETE_WINDOW", self.on_close)
+
+    def on_close(self):
+        self.master.destroy()
+        self.menu_root.deiconify()
+
     def setup(self, ROWS, COLS, MINES):
         for x in range(ROWS):
             row = []
@@ -147,7 +153,7 @@ class Minesweeper:
         msg = ""
 
         if win:
-            msg = f"You Win!\nYou have received f{self.reward} coins"
+            msg = f"You Win!\nYou have received {self.reward} coins"
             self.send_reward()
         else:
             msg = "Game Over!"
@@ -156,9 +162,7 @@ class Minesweeper:
 
     def send_reward(self):
         w3 = Web3(Web3.HTTPProvider(GANACHE_URL))
-        print("Kết nối:", w3.is_connected())
 
-        # Đọc thông tin tài khoản từ file JSON
         with open("../scripts/accounts.json", "r") as f:
             accounts = json.load(f)
 
@@ -177,11 +181,6 @@ class Minesweeper:
         signed_tx = w3.eth.account.sign_transaction(tx, sender["private_key"])
         tx_hash = w3.eth.send_raw_transaction(signed_tx.raw_transaction)
 
-        balance_sender = w3.from_wei(w3.eth.get_balance(sender["address"]), 'ether')
-        balance_receiver = w3.from_wei(w3.eth.get_balance(receiver["address"]), 'ether')
-        print(f"Số dư người gửi: {balance_sender} ETH")
-        print(f"Số dư người nhận: {balance_receiver} ETH")
-
 
     def check_win(self):
         for row in self.board:
@@ -198,8 +197,7 @@ class Minesweeper:
 
         def return_to_menu():
             popup.destroy()
-            self.master.destroy()
-            self.menu_root.deiconify()
+            self.on_close()
 
         tk.Button(popup, text="Exit", command=return_to_menu).pack(pady=5)
 

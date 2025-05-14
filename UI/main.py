@@ -3,6 +3,10 @@ from PIL import Image, ImageTk, ImageDraw, ImageFont
 import minesweeper
 import storage
 import NFTsStore
+import blockchain
+from web3 import Web3
+import json
+from config.config import GANACHE_URL, CONTRACT_ADDRESS
 
 
 def create_canvas_button(image_path, text, x, y, command):
@@ -76,11 +80,21 @@ def open_storage():
     storage.Storage(storage_window, root)
 
 def open_blockchain():
-    return
+    root.withdraw()
+    blockchain_window = tk.Toplevel()
+    blockchain_window.title(f"Storage")
+    blockchain.BlockViewer(blockchain_window, root)
 
 if __name__ == '__main__':
-    user_address = 'xxxxx'
-    private_key = 'xxxxx'
+    w3 = Web3(Web3.HTTPProvider(GANACHE_URL))
+
+    with open("../scripts/accounts.json", "r") as f:
+        accounts = json.load(f)
+
+    sender = accounts[0]
+    receiver = accounts[1]
+    user_address = receiver["address"]
+    private_key = receiver["private_key"]
     root = tk.Tk()
     root.title("Main Menu")
     center_window(root, 600, 400)
@@ -97,7 +111,7 @@ if __name__ == '__main__':
     canvas.image_store = []
 
     create_canvas_button("button.png", "Play", 300, 120, choose_difficulty)
-    create_canvas_button("button.png", "Shop", 300, 180, open_shop(user_address, private_key))
+    create_canvas_button("button.png", "Shop", 300, 180, lambda: open_shop(user_address, private_key))
     create_canvas_button("button.png", "Storage", 300, 240, open_storage)
     create_canvas_button("button.png", "Blockchain", 300, 300, open_blockchain)
 

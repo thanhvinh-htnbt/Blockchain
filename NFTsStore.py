@@ -10,9 +10,9 @@ from scripts.mint_NFT import mint_nft
 from PIL import Image
 
 
-NFT_FOLDER = "NFTsData"
-PRICES_FILE = "NFTsData/prices.json"
-COLLECTION = "collection"
+NFT_FOLDER = "../NFTsData"
+PRICES_FILE = "../NFTsData/prices.json"
+COLLECTION = "../collection"
 
 # Load giá từ prices.json
 def load_prices():

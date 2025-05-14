@@ -38,6 +38,12 @@ class Storage:
         self.blank_image = ImageTk.PhotoImage(Image.open("img_empty.png").resize((IMAGE_SIZE, IMAGE_SIZE)))
         self.setup(ROWS, COLS)
 
+        self.master.protocol("WM_DELETE_WINDOW", self.on_close)
+
+    def on_close(self):
+        self.master.destroy()
+        self.menu_root.deiconify()
+
     def setup(self, ROWS, COLS):
         img_index = 0
         for x in range(ROWS):
