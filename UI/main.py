@@ -54,46 +54,11 @@ def choose_difficulty():
                   command=lambda lvl=level: [diff_win.destroy(), start_game(lvl)]
                   ).pack(pady=5)
 
-def open_shop():
+def open_shop(user_address, private_key):
     root.withdraw()  # Ẩn cửa sổ chính
+    NFTsStore.show_nft_store(user_address, private_key)
+
     
-    # Thêm thông tin người dùng (cần điều chỉnh theo cách bạn lấy thông tin)
-    user_address = "0xYourUserAddress"  
-    private_key = "YourPrivateKey"  
-    
-    # Tạo cửa sổ mới
-    shop_window = tk.Toplevel()
-    shop_window.title("NFT Marketplace")
-    
-    # Thiết lập canvas và scrollbar
-    canvas = tk.Canvas(shop_window)
-    scrollbar = ttk.Scrollbar(shop_window, orient="vertical", command=canvas.yview)
-    scroll_frame = ttk.Frame(canvas)
-    
-    # Cấu hình scroll
-    scroll_frame.bind(
-        "<Configure>",
-        lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
-    canvas.create_window((0, 0), window=scroll_frame, anchor="nw")
-    canvas.configure(yscrollcommand=scrollbar.set)
-    
-    # Bố cục giao diện
-    canvas.pack(side="left", fill="both", expand=True)
-    scrollbar.pack(side="right", fill="y")
-    
-    # Nút quay lại
-    back_button = ttk.Button(
-        scroll_frame,
-        text="Back to Main Menu",
-        command=lambda: [shop_window.destroy(), root.deiconify()]
-    )
-    back_button.pack(pady=10)
-    
-    # Tải NFTs - giả định bạn đã có hàm này
-    load_nfts(scroll_frame, user_address, private_key)
-    
-    # Xử lý đóng cửa sổ
-    shop_window.protocol("WM_DELETE_WINDOW", lambda: [shop_window.destroy(), root.deiconify()])
 
 def center_window(win, width, height):
     win.update_idletasks()
@@ -114,6 +79,8 @@ def open_blockchain():
     return
 
 if __name__ == '__main__':
+    user_address = 'xxxxx'
+    private_key = 'xxxxx'
     root = tk.Tk()
     root.title("Main Menu")
     center_window(root, 600, 400)
@@ -130,7 +97,7 @@ if __name__ == '__main__':
     canvas.image_store = []
 
     create_canvas_button("button.png", "Play", 300, 120, choose_difficulty)
-    create_canvas_button("button.png", "Shop", 300, 180, open_shop)
+    create_canvas_button("button.png", "Shop", 300, 180, open_shop(user_address, private_key))
     create_canvas_button("button.png", "Storage", 300, 240, open_storage)
     create_canvas_button("button.png", "Blockchain", 300, 300, open_blockchain)
 

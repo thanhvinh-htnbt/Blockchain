@@ -47,17 +47,29 @@ def image_to_data_uri(image_path):
 # Hàm xử lý khi nhấn nút Mua
 def buy_nft(image_path, button, recipient_address, private_key, price_eth):
 
+    file_name = os.path.basename(image_path)
+    collection_path = os.path.join(COLLECTION, file_name)
+
     
-    if os.path.exists(os.path.join(COLLECTION, image_path)):
+    if os.path.exists(collection_path):
         messagebox.showinfo("Đã mua", "Bạn đã mua NFT này rồi.")
         return
 
     try:
-        token_uri = image_to_data_uri(image_path)
-        token_id = mint_nft(token_uri, recipient_address, private_key, price_eth)
+        token_uri_input = image_to_data_uri(image_path)
 
-        # Lưu ảnh vào thư mục collection
-        save_image_to_collection(image_path)
+        # Mint NFT và nhận lại tokenURI thực tế từ blockchain
+        token_uri_onchain = mint_nft(token_uri_input, recipient_address, private_key, price_eth)
+
+        # Giải mã lại ảnh từ tokenURI
+        image = data_uri_to_image(token_uri_onchain)
+
+        if not os.path.exists(COLLECTION):
+            os.makedirs(COLLECTION)
+
+
+        save_path = os.path.join(COLLECTION, file_name)
+        image.save(save_path)
         button.config(state="disabled", text="Đã mua")
         messagebox.showinfo("Thành công", "Mua NFT thành công!")
     except Exception as e:
@@ -98,21 +110,6 @@ def load_nfts(container, user_address, private_key):
         if col >= 3:
             row += 1
             col = 0
-
-    
-def save_image_to_collection(image_path):
-    if not os.path.exists(COLLECTION):
-        os.makedirs(COLLECTION)
-
-    file_name = os.path.basename(image_path)
-    save_path = os.path.join(COLLECTION, file_name)
-
-    try:
-        shutil.copy(image_path, save_path)
-        print(f"Đã lưu NFT vào: {save_path}")
-    except Exception as e:
-        print(f"Lỗi khi sao chép ảnh NFT: {e}")
-
 
 
 # Giao diện chính

@@ -22,14 +22,22 @@ def mint_nft(image_data, user_address, private_key, price_eth):
     signed_tx = w3.eth.account.sign_transaction(tx, private_key=private_key)
     tx_hash = w3.eth.send_raw_transaction(signed_tx.raw_transaction)
 
-    tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
+    print(f"NFT minted! TX Hash: {tx_hash.hex()}")
 
-    # Tìm sự kiện NFTMinted để lấy tokenId
-    events = nft_contract.events.NFTMinted().process_receipt(tx_receipt)
-    if events:
-        token_id = events[0]["args"]["tokenId"]
-        print(f"Mint thành công. Token ID: {token_id}")
-        return token_id
-    else:
-        print("Không tìm thấy sự kiện NFTMinted.")
-        return None
+     # Đợi xác nhận giao dịch
+    receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
+
+    # Lấy event NFTMinted để biết tokenId
+    events = nft_contract.events.NFTMinted().process_receipt(receipt)
+    if not events:
+        raise Exception("Không tìm thấy sự kiện NFTMinted!")
+
+    token_id = events[0]["args"]["tokenId"]
+    print(f"Mint thành công. Token ID: {token_id}")
+
+    # Lấy lại tokenURI
+    token_uri = nft_contract.functions.tokenURI(token_id).call()
+    print(f"TokenURI: {token_uri}")
+     
+    return token_uri
+
