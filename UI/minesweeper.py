@@ -3,7 +3,6 @@ from PIL import Image, ImageTk
 import random
 from web3 import Web3
 import json
-from config.config import GANACHE_URL, CONTRACT_ADDRESS
 from UI import main
 
 IMAGE_SIZE = 30
@@ -161,24 +160,28 @@ class Minesweeper:
         self.popup(msg)
 
     def send_reward(self):
-        w3 = Web3(Web3.HTTPProvider(GANACHE_URL))
+        with open("../config/config.json", "r") as f:
+            config = json.load(f)
+
+        ganache_url = config["GANACHE_URL"]
+        w3 = Web3(Web3.HTTPProvider(ganache_url))
 
         with open("../scripts/accounts.json", "r") as f:
             accounts = json.load(f)
 
-        sender = accounts[0]
-        receiver = accounts[1]
+        server = accounts[0]
+        user = accounts[1]
 
         tx = {
-            'nonce': w3.eth.get_transaction_count(sender["address"]),
-            'to': receiver["address"],
+            'nonce': w3.eth.get_transaction_count(server["address"]),
+            'to': user["address"],
             'value': w3.to_wei(self.reward, 'ether'),
             'gas': 21000,
             'gasPrice': w3.to_wei('50', 'gwei')
         }
 
         # Ký và gửi transaction
-        signed_tx = w3.eth.account.sign_transaction(tx, sender["private_key"])
+        signed_tx = w3.eth.account.sign_transaction(tx, server["private_key"])
         tx_hash = w3.eth.send_raw_transaction(signed_tx.raw_transaction)
 
 

@@ -5,7 +5,7 @@ import json
 import base64
 from tkinter import messagebox, ttk
 from PIL import ImageTk
-from scripts.mint_NFT import mint_nft
+from scripts import mint_NFT
 from PIL import Image
 
 
@@ -81,7 +81,7 @@ class NFTsStore:
             token_uri_input = self.image_to_data_uri(image_path)
 
             # Mint NFT và nhận lại tokenURI thực tế từ blockchain
-            token_uri_onchain = mint_nft(token_uri_input, recipient_address, private_key, price_eth)
+            token_uri_onchain = mint_NFT.mint_nft(token_uri_input, recipient_address, private_key, price_eth)
 
             # Giải mã lại ảnh từ tokenURI
             image = self.data_uri_to_image(token_uri_onchain)

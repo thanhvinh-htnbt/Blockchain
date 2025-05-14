@@ -1,12 +1,14 @@
 import tkinter as tk
+from tkinter import messagebox
 from PIL import Image, ImageTk, ImageDraw, ImageFont
-import minesweeper
-import storage
-from UI import NFTsStore
-import blockchain
+import NFTsStore
 from web3 import Web3
 import json
-from config.config import GANACHE_URL
+import minesweeper
+import storage
+import blockchain
+
+from deploy import deploy
 
 
 def create_canvas_button(image_path, text, x, y, command):
@@ -87,16 +89,27 @@ def open_blockchain():
     blockchain_window.title(f"BLock Viewer")
     blockchain.BlockViewer(blockchain_window, root)
 
+def deploy_contract():
+    w3, contract, server = deploy()
+    messagebox.showinfo("Deplou contract thành công", f"Contract đã được triển khai tại: {contract.address}")
+
+
+
 if __name__ == '__main__':
-    w3 = Web3(Web3.HTTPProvider(GANACHE_URL))
+
+    with open("config/config.json", "r") as f:
+        config = json.load(f)
+
+    ganache_url = config["GANACHE_URL"]
+    w3 = Web3(Web3.HTTPProvider(ganache_url))
 
     with open("../scripts/accounts.json", "r") as f:
         accounts = json.load(f)
 
-    sender = accounts[0]
-    receiver = accounts[1]
-    user_address = receiver["address"]
-    private_key = receiver["private_key"]
+    server = accounts[0]
+    user = accounts[1]
+    user_address = user["address"]
+    user_private_key = user["private_key"]
     root = tk.Tk()
     root.title("Main Menu")
     center_window(root, 600, 400)
@@ -113,8 +126,8 @@ if __name__ == '__main__':
     canvas.image_store = []
 
     create_canvas_button("button.png", "Play", 300, 120, choose_difficulty)
-    create_canvas_button("button.png", "Shop", 300, 180, lambda: open_shop(user_address, private_key))
+    create_canvas_button("button.png", "Shop", 300, 180, lambda: open_shop(user_address, user_private_key))
     create_canvas_button("button.png", "Storage", 300, 240, open_storage)
     create_canvas_button("button.png", "Blockchain", 300, 300, open_blockchain)
-
+    create_canvas_button("button.png", "Deploy", 300, 120, deploy_contract)
     root.mainloop()

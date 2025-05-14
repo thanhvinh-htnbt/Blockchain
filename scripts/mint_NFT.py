@@ -1,16 +1,22 @@
 from web3 import Web3
 import json
-from config.config import GANACHE_URL, CONTRACT_ADDRESS
 
 def mint_nft(image_data, user_address, private_key, price_eth):
 
-    w3 = Web3(Web3.HTTPProvider(GANACHE_URL))
+    # Đọc config
+    with open("config/config.json", "r") as f:
+        config = json.load(f)
+
+    ganache_url = config["GANACHE_URL"]
+    contract_address = config["CONTRACT_ADDRESS"]
+
+    w3 = Web3(Web3.HTTPProvider(ganache_url))
     print("Connected:", w3.is_connected())
 
     with open("../contracts/GameToken_contract.json", "r") as f:
         contract_data = json.load(f)
 
-    nft_contract = w3.eth.contract(address=CONTRACT_ADDRESS, abi=contract_data["abi"])
+    nft_contract = w3.eth.contract(address=contract_address, abi=contract_data["abi"])
 
 
     tx = nft_contract.functions.mintNFT(image_data).build_transaction({

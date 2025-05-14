@@ -4,11 +4,16 @@ from solcx import compile_source, install_solc
 
 def deploy():
 
+    with open("../config/config.json", "r") as f:
+        config = json.load(f)
+
+    ganache_url = config["GANACHE_URL"]
+
     # Cài đặt compiler (chạy 1 lần)
     install_solc("0.8.1")
 
     # Kết nối Ganache
-    w3 = Web3(Web3.HTTPProvider("http://127.0.0.1:7545"))
+    w3 = Web3(Web3.HTTPProvider(ganache_url))
 
     if w3.is_connected():
         print("Connected to Ganache")
@@ -17,68 +22,28 @@ def deploy():
 
     server = w3.eth.accounts[0]
 
-    # Load Smart Contract từ chuỗi
-    with open("contracts/GameToken.sol", "r") as file:
-        source_code = file.read()
+    # Load ABI và bytecode từ file JSON (do Remix hoặc solc CLI tạo ra)
+    with open("../contracts/GameToken_contract.json", "r") as f:
+        contract_data = json.load(f)
 
-    compiled = compile_source(
-    source_code,
-    solc_version="0.8.1",
-    base_path=".",
-    allow_paths=".",
-    import_remappings=["@openzeppelin=node_modules/@openzeppelin"])
-    
-    contract_id, contract_interface = compiled.popitem()
+    abi = contract_data["abi"]
+    bytecode = contract_data["bytecode"]
 
-    abi = contract_interface['abi']
-    bytecode = contract_interface['bin']
-
-    # Deploy Contract
+    # Triển khai contract
     GameToken = w3.eth.contract(abi=abi, bytecode=bytecode)
-    tx_hash = GameToken.constructor().transact({'from': server})
+    tx_hash = GameToken.constructor().transact({"from": server})
     tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
+
     contract_address = tx_receipt.contractAddress
-    print("Contract deployed at:", contract_address)
+    print("Contract đã được triển khai tại:", contract_address)
 
-    # Tạo instance
+    config["CONTRACT_ADDRESS"] = contract_address
+
+    with open("../config/config.json", "w") as f:
+        json.dump(config, f, indent=4)
+
+
+    # Trả về các đối tượng cần thiết
     contract = w3.eth.contract(address=contract_address, abi=abi)
-
     return w3, contract, server
 
-
-def create_player(w3, contract, server):
-    # Tạo user mới
-    user = w3.eth.accounts[1]
-    tx = contract.functions.createPlayer().transact({'from': user})
-    w3.eth.wait_for_transaction_receipt(tx)
-
-    return user
-
-def reward(w3, contract, server, user, amount):
-    # Server gửi coin cho user
-    tx = contract.functions.reward(user, amount).transact({'from': server})
-    receipt = w3.eth.wait_for_transaction_receipt(tx)
-    return receipt
-
-
-def buy_item(w3, contract, user, amount, encrypted_image):
-    # Player mua item
-    tx = contract.functions.buyItem(user, amount, encrypted_image).transact({'from': user})
-    receipt = w3.eth.wait_for_transaction_receipt(tx)
-    return receipt
-
-def get_user_image_count(w3, contract, user):
-    # Lấy số lượng ảnh của user
-    count = contract.functions.getImageCount(user).call()
-    return count
-
-def get_image_cipher(w3, contract, user, index):
-    # Lấy cipher của ảnh
-    cipher = contract.functions.getEncryptedImage(user, index).call()
-    return cipher
-    
-def get_user_balance(w3, contract, user):
-    balance = contract.functions.getBalance(user).call()
-    return balance 
-
-deploy()
