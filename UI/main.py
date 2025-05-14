@@ -90,14 +90,14 @@ def open_blockchain():
     blockchain.BlockViewer(blockchain_window, root)
 
 def deploy_contract():
-    w3, contract, server = deploy()
+    w3, contract, server = deploy.deploy()
     messagebox.showinfo("Deplou contract thành công", f"Contract đã được triển khai tại: {contract.address}")
 
 
 
 if __name__ == '__main__':
 
-    with open("config/config.json", "r") as f:
+    with open("../config/config.json", "r") as f:
         config = json.load(f)
 
     ganache_url = config["GANACHE_URL"]
@@ -129,5 +129,5 @@ if __name__ == '__main__':
     create_canvas_button("button.png", "Shop", 300, 180, lambda: open_shop(user_address, user_private_key))
     create_canvas_button("button.png", "Storage", 300, 240, open_storage)
     create_canvas_button("button.png", "Blockchain", 300, 300, open_blockchain)
-    create_canvas_button("button.png", "Deploy", 300, 120, deploy_contract)
+    create_canvas_button("button.png", "Deploy", 300, 360, deploy_contract)
     root.mainloop()

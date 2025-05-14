@@ -1,9 +1,9 @@
+import json
 import tkinter as tk
-from tkinter import messagebox
 from datetime import datetime
 
 from web3 import Web3
-from config.config import GANACHE_URL, CONTRACT_ADDRESS
+
 
 class BlockViewer:
     def __init__(self, master, menu_root):
@@ -37,7 +37,11 @@ class BlockViewer:
         self.menu_root.deiconify()
 
     def get_block_info(self, start=0, end=None):
-        w3 = Web3(Web3.HTTPProvider(GANACHE_URL))
+        with open("../config/config.json", "r") as f:
+            config = json.load(f)
+
+        ganache_url = config["GANACHE_URL"]
+        w3 = Web3(Web3.HTTPProvider(ganache_url))
         if end is None:
             end = w3.eth.block_number
         blocks = []
