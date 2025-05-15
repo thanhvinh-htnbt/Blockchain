@@ -114,6 +114,9 @@ class NFTsStore:
             image.save(save_path)
             button.config(state="disabled", text="Đã mua")
             messagebox.showinfo("Thành công", "Mua NFT thành công!")
+
+            new_balance = self.get_eth_balance()
+            self.balance_label.config(text=f"Số dư: {new_balance} ETH")
         except Exception as e:
             messagebox.showerror("Lỗi", f"Mua NFT thất bại:\n{e}")
 
