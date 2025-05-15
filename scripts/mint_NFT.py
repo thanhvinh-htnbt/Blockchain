@@ -10,6 +10,10 @@ def mint_nft(image_data, user_address, private_key, price_eth):
     ganache_url = config["GANACHE_URL"]
     contract_address = config["CONTRACT_ADDRESS"]
 
+    with open("../scripts/accounts.json", "r") as f:
+        accounts = json.load(f)
+
+    server = accounts[0]
     w3 = Web3(Web3.HTTPProvider(ganache_url))
     print("Connected:", w3.is_connected())
 
@@ -21,6 +25,7 @@ def mint_nft(image_data, user_address, private_key, price_eth):
 
     tx = nft_contract.functions.mintNFT(image_data).build_transaction({
         "from": user_address,
+        "to": server["address"],
         "nonce": w3.eth.get_transaction_count(user_address),
         "gasPrice": w3.to_wei(price_eth, "gwei")
     })
