@@ -148,14 +148,21 @@ class NFTsStore:
             img_label.pack()
 
             price_val = prices.get(img_file, "1 ETH")
-
             price_label = ttk.Label(frame, text=f"Giá: {price_val}", font=("Arial", 12))
             price_label.pack()
 
-            buy_button = ttk.Button(frame, text="Mua")
-            buy_button.config(command=lambda path=img_path, btn=buy_button:
-            self.buy_nft(path, btn, user_address, private_key, price_val))
-            buy_button.pack()
+            file_name = os.path.basename(img_path)
+            collection_path = os.path.join(COLLECTION, file_name)
+
+            if os.path.exists(collection_path):
+                messagebox.showinfo("Đã mua", "Bạn đã mua NFT này rồi.")
+                buy_button.config(state="disabled", text="Đã mua")
+            else:
+                buy_button = ttk.Button(frame, text="Mua")
+                buy_button.config(command=lambda path=img_path, btn=buy_button:
+                self.buy_nft(path, btn, user_address, private_key, price_val))
+                buy_button.pack()
+                
 
             col += 1
             if col >= 3:
