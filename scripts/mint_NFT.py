@@ -4,7 +4,7 @@ import json
 def mint_nft(image_data, user_address, private_key, price_eth):
 
     # Đọc config
-    with open("config/config.json", "r") as f:
+    with open("../config/config.json", "r") as f:
         config = json.load(f)
 
     ganache_url = config["GANACHE_URL"]
@@ -26,8 +26,9 @@ def mint_nft(image_data, user_address, private_key, price_eth):
     tx = nft_contract.functions.mintNFT(image_data).build_transaction({
         "from": user_address,
         "to": server["address"],
+        "value": w3.to_wei(price_eth, "ether"),
         "nonce": w3.eth.get_transaction_count(user_address),
-        "gasPrice": w3.to_wei(price_eth, "gwei")
+        "gasPrice": w3.to_wei('50', "gwei")
     })
 
     signed_tx = w3.eth.account.sign_transaction(tx, private_key=private_key)
