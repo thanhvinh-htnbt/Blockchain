@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.30+commit.73712a01"
+		"version": "0.8.26+commit.8a97fa7a"
 	},
 	"language": "Solidity",
 	"output": {
@@ -335,7 +335,7 @@
 						"type": "uint256"
 					}
 				],
-				"stateMutability": "nonpayable",
+				"stateMutability": "payable",
 				"type": "function"
 			},
 			{
@@ -829,11 +829,11 @@
 			]
 		},
 		"contracts/GameToken.sol": {
-			"keccak256": "0xcf613dfc04213f277f60a6a97bbc4b2fc2d0e29fd8455f29e12860ddeb37baa9",
+			"keccak256": "0x650c09852db2307a84d43974adcdcb8105a74e54292c982671f57742895bb314",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://19af5fdbc0413cc671b63a0fcb56a9a5d71da90b5a8b22cc2cadca427fee2a90",
-				"dweb:/ipfs/QmVH3Ed6LdLh991Nate4tfWn3EuRLJ8oe1kL8RnhJdDi4r"
+				"bzz-raw://816b8ef5a957681f1f583981e24628a686086ad2596d96dc554a14f299b68601",
+				"dweb:/ipfs/QmQQ6V1sxL8HAFZH9RU2VCn3nR9Czbt5iEDjFZET5b7CgP"
 			]
 		}
 	},

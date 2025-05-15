@@ -14,7 +14,6 @@ def mint_nft(image_data, user_address, private_key, price_eth):
         accounts = json.load(f)
 
     server = accounts[0]
-    server_address = server["address"]
     w3 = Web3(Web3.HTTPProvider(ganache_url))
     print("Connected:", w3.is_connected())
 
@@ -52,18 +51,5 @@ def mint_nft(image_data, user_address, private_key, price_eth):
     token_uri = nft_contract.functions.tokenURI(token_id).call()
     print(f"TokenURI: {token_uri}")
 
-    # # Transaction để chuyển tiền từ user_address đến server_address
-    # transfer_tx = {
-    #     'nonce': w3.eth.get_transaction_count(user_address),
-    #     'to': server_address,
-    #     'value': w3.to_wei(price_eth, 'ether'),  # Số tiền chuyển
-    #     'gas': 21000,
-    #     'gasPrice': w3.to_wei('50', 'gwei')
-    # }
-
-    # # Ký và gửi transaction
-    # signed_transfer_tx = w3.eth.account.sign_transaction(transfer_tx, private_key)
-    # transfer_tx_hash = w3.eth.send_raw_transaction(signed_transfer_tx.raw_transaction)
-     
     return token_uri
 

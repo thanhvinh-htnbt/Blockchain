@@ -12,7 +12,7 @@ contract GameToken is ERC721URIStorage {
     }
 
 
-    function mintNFT(string memory tokenURI) public returns (uint256) {
+    function mintNFT(string memory tokenURI) public payable returns (uint256) {
 
         uint256 newItemId = tokenCounter;
         _mint(msg.sender, newItemId);

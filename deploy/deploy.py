@@ -1,6 +1,6 @@
 import json
 from web3 import Web3
-from solcx import compile_source, install_solc
+from solcx import install_solc
 
 def deploy():
 
