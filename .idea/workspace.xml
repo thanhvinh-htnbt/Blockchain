@@ -5,36 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bd788161-7d19-403b-9ab5-36bf930c1195" name="Changes" comment="Init">
-      <change beforePath="$PROJECT_DIR$/.deps/npm/@openzeppelin/contracts/interfaces/IERC165.sol" beforeDir="false" afterPath="$PROJECT_DIR$/.deps/npm/@openzeppelin/contracts/interfaces/IERC165.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.deps/npm/@openzeppelin/contracts/interfaces/IERC4906.sol" beforeDir="false" afterPath="$PROJECT_DIR$/.deps/npm/@openzeppelin/contracts/interfaces/IERC4906.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.deps/npm/@openzeppelin/contracts/interfaces/IERC721.sol" beforeDir="false" afterPath="$PROJECT_DIR$/.deps/npm/@openzeppelin/contracts/interfaces/IERC721.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.deps/npm/@openzeppelin/contracts/interfaces/draft-IERC6093.sol" beforeDir="false" afterPath="$PROJECT_DIR$/.deps/npm/@openzeppelin/contracts/interfaces/draft-IERC6093.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.deps/npm/@openzeppelin/contracts/token/ERC721/ERC721.sol" beforeDir="false" afterPath="$PROJECT_DIR$/.deps/npm/@openzeppelin/contracts/token/ERC721/ERC721.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.deps/npm/@openzeppelin/contracts/token/ERC721/IERC721.sol" beforeDir="false" afterPath="$PROJECT_DIR$/.deps/npm/@openzeppelin/contracts/token/ERC721/IERC721.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.deps/npm/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol" beforeDir="false" afterPath="$PROJECT_DIR$/.deps/npm/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.deps/npm/@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol" beforeDir="false" afterPath="$PROJECT_DIR$/.deps/npm/@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.deps/npm/@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol" beforeDir="false" afterPath="$PROJECT_DIR$/.deps/npm/@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.deps/npm/@openzeppelin/contracts/token/ERC721/utils/ERC721Utils.sol" beforeDir="false" afterPath="$PROJECT_DIR$/.deps/npm/@openzeppelin/contracts/token/ERC721/utils/ERC721Utils.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.deps/npm/@openzeppelin/contracts/utils/Context.sol" beforeDir="false" afterPath="$PROJECT_DIR$/.deps/npm/@openzeppelin/contracts/utils/Context.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.deps/npm/@openzeppelin/contracts/utils/Panic.sol" beforeDir="false" afterPath="$PROJECT_DIR$/.deps/npm/@openzeppelin/contracts/utils/Panic.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.deps/npm/@openzeppelin/contracts/utils/Strings.sol" beforeDir="false" afterPath="$PROJECT_DIR$/.deps/npm/@openzeppelin/contracts/utils/Strings.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.deps/npm/@openzeppelin/contracts/utils/introspection/ERC165.sol" beforeDir="false" afterPath="$PROJECT_DIR$/.deps/npm/@openzeppelin/contracts/utils/introspection/ERC165.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.deps/npm/@openzeppelin/contracts/utils/introspection/IERC165.sol" beforeDir="false" afterPath="$PROJECT_DIR$/.deps/npm/@openzeppelin/contracts/utils/introspection/IERC165.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.deps/npm/@openzeppelin/contracts/utils/math/Math.sol" beforeDir="false" afterPath="$PROJECT_DIR$/.deps/npm/@openzeppelin/contracts/utils/math/Math.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.deps/npm/@openzeppelin/contracts/utils/math/SafeCast.sol" beforeDir="false" afterPath="$PROJECT_DIR$/.deps/npm/@openzeppelin/contracts/utils/math/SafeCast.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.deps/npm/@openzeppelin/contracts/utils/math/SignedMath.sol" beforeDir="false" afterPath="$PROJECT_DIR$/.deps/npm/@openzeppelin/contracts/utils/math/SignedMath.sol" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/Blockchain.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Blockchain.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NFTsData/prices.json" beforeDir="false" afterPath="$PROJECT_DIR$/NFTsData/prices.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI/NFTsStore.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/NFTsStore.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/collection/img_flag_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/collection/img_flag_4.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/config/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contracts/GameToken.sol" beforeDir="false" afterPath="$PROJECT_DIR$/contracts/GameToken.sol" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contracts/GameToken_contract.json" beforeDir="false" afterPath="$PROJECT_DIR$/contracts/GameToken_contract.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contracts/artifacts/GameToken.json" beforeDir="false" afterPath="$PROJECT_DIR$/contracts/artifacts/GameToken.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contracts/artifacts/GameToken_metadata.json" beforeDir="false" afterPath="$PROJECT_DIR$/contracts/artifacts/GameToken_metadata.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contracts/artifacts/build-info/c1dd0453b838b270b7aec863e38489e2.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/deploy/deploy.py" beforeDir="false" afterPath="$PROJECT_DIR$/deploy/deploy.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/accounts.json" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/accounts.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/mint_NFT.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/mint_NFT.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,30 +54,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.NFTsStore.executor&quot;: &quot;Run&quot;,
-    &quot;Python.createNewUser.executor&quot;: &quot;Run&quot;,
-    &quot;Python.deploy.executor&quot;: &quot;Run&quot;,
-    &quot;Python.image.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.minesweeper.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;phong&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Vinh/Documents/GitHub/Blockchain/collection&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.NFTsStore.executor": "Run",
+    "Python.createNewUser.executor": "Run",
+    "Python.deploy.executor": "Run",
+    "Python.image.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.minesweeper.executor": "Run",
+    "Python.test.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "phong",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/Vinh/Documents/GitHub/Blockchain/collection",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Vinh\Documents\GitHub\Blockchain\collection" />
@@ -144,8 +124,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-PY-251.25410.159" />
-        <option value="bundled-python-sdk-e0ed3721d81e-36ea0e71a18c-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-251.25410.159" />
+        <option value="bundled-python-sdk-495700d161d3-aa17d162503b-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-243.22562.220" />
       </set>
     </attachedChunks>
   </component>

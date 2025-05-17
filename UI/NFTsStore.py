@@ -91,6 +91,8 @@ class NFTsStore:
     # Hàm xử lý khi nhấn nút Mua
     def buy_nft(self, image_path, button, recipient_address, private_key, price_eth):
 
+        print(price_eth)
+
         file_name = os.path.basename(image_path)
         collection_path = os.path.join(COLLECTION, file_name)
 
@@ -161,8 +163,8 @@ class NFTsStore:
             if os.path.exists(collection_path):
                 buy_button.config(state="disabled", text="Đã mua")
             else:
-                buy_button.config(command=lambda path=img_path, btn=buy_button:
-                self.buy_nft(path, btn, user_address, private_key, price_val))
+                buy_button.config(command=lambda path=img_path, btn=buy_button, price = price_val:
+                self.buy_nft(path, btn, user_address, private_key, price))
             
             buy_button.pack()
                 
